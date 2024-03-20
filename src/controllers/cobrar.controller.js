@@ -1,12 +1,12 @@
 import { pool } from '../db.js'
 
 export const postCobrar = async (req, res) => {
-    const {Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
+    const {Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
     try {
-        const [rows] = await pool.query('INSERT INTO cobrar (Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo) VALUES (?,?,?,?,?,?,?,?)', [Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo])
+        const [rows] = await pool.query('INSERT INTO cobrar (Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo) VALUES (?,?,?,?,?,?,?,?)', [Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo])
         res.send({
             id: rows.insertId,
-            Elemento, 
+            Factura, 
             Estado, 
             Cliente, 
             Pesos, 
@@ -68,9 +68,9 @@ export const getSumaAnticipo = async (req, res) => {
 
 export const putCobrar = async (req, res) => {
     const {idCobrar} = req.params
-    const {Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
+    const {Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
     try {
-    const [result] = await pool.query('UPDATE cobrar SET Elemento = IFNULL(?, Elemento), Estado = IFNULL(?, Estado), Cliente = IFNULL(?, Cliente), Pesos = IFNULL(?, Pesos), Dolares = IFNULL(?, Dolares), Cronograma = IFNULL(?, Cronograma), Anticipo = IFNULL(?, Anticipo), Cantidad_Anticipo = IFNULL(?, Cantidad_Anticipo)  WHERE idInversion = ?', [Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo, idCobrar])
+    const [result] = await pool.query('UPDATE cobrar SET Factura = IFNULL(?, Factura), Estado = IFNULL(?, Estado), Cliente = IFNULL(?, Cliente), Pesos = IFNULL(?, Pesos), Dolares = IFNULL(?, Dolares), Cronograma = IFNULL(?, Cronograma), Anticipo = IFNULL(?, Anticipo), Cantidad_Anticipo = IFNULL(?, Cantidad_Anticipo)  WHERE idCobrar = ?', [Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo, idCobrar])
     console.log(result)
     if(result === 0) return res.status(404).json({
         message:'Cobrar no actualizada'

@@ -1,12 +1,12 @@
 import { pool } from '../db.js'
 
 export const postPagar = async (req, res) => {
-    const {Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
+    const {Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
     try {
-        const [rows] = await pool.query('INSERT INTO pagar (Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo) VALUES (?,?,?,?,?,?,?,?)', [Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo])
+        const [rows] = await pool.query('INSERT INTO pagar (Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo) VALUES (?,?,?,?,?,?,?,?)', [Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo])
         res.send({
             id: rows.insertId,
-            Elemento, 
+            Factura, 
             Estado, 
             Cliente, 
             Pesos, 
@@ -68,9 +68,9 @@ export const getSumaAnticipoo = async (req, res) => {
 
 export const putPagar = async (req, res) => {
     const {idPagar} = req.params
-    const {Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
+    const {Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo} = req.body
     try {
-    const [result] = await pool.query('UPDATE pagar SET Elemento = IFNULL(?, Elemento), Estado = IFNULL(?, Estado), Cliente = IFNULL(?, Cliente), Pesos = IFNULL(?, Pesos), Dolares = IFNULL(?, Dolares), Cronograma = IFNULL(?, Cronograma), Anticipo = IFNULL(?, Anticipo), Cantidad_Anticipo = IFNULL(?, Cantidad_Anticipo)  WHERE idPagar = ?', [Elemento, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo, idPagar])
+    const [result] = await pool.query('UPDATE pagar SET Factura = IFNULL(?, Factura), Estado = IFNULL(?, Estado), Cliente = IFNULL(?, Cliente), Pesos = IFNULL(?, Pesos), Dolares = IFNULL(?, Dolares), Cronograma = IFNULL(?, Cronograma), Anticipo = IFNULL(?, Anticipo), Cantidad_Anticipo = IFNULL(?, Cantidad_Anticipo)  WHERE idPagar = ?', [Factura, Estado, Cliente, Pesos, Dolares, Cronograma, Anticipo, Cantidad_Anticipo, idPagar])
     console.log(result)
     if(result === 0) return res.status(404).json({
         message:'Pagar no actualizada'

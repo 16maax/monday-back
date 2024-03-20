@@ -1,16 +1,16 @@
 import { pool } from '../db.js'
 
 export const postInversiones = async (req, res) => {
-    const {Elemento, Estado, Inversion, Facturacion, Propuesta} = req.body
+    const {Descripcion, Estado, Inversion, Facturacion, Interes} = req.body
     try {
-        const [rows] = await pool.query('INSERT INTO inversion (Elemento, Estado, Inversion, Facturacion, Propuesta) VALUES (?,?,?,?,?)', [Elemento, Estado, Inversion, Facturacion, Propuesta])
+        const [rows] = await pool.query('INSERT INTO inversion (Descripcion, Estado, Inversion, Facturacion, Interes) VALUES (?,?,?,?,?)', [Descripcion, Estado, Inversion, Facturacion, Interes])
         res.send({
             id: rows.insertId,
-            Elemento, 
+            Descripcion, 
             Estado, 
             Inversion, 
             Facturacion, 
-            Propuesta
+            Interes
         }) 
     } catch (error) {
         return res.status(500).json({
@@ -54,7 +54,7 @@ export const getSumaFacturacion = async (req, res) => {
 
 export const getSumaPropuesta = async (req, res) => {
     try {
-    const [rows] = await pool.query('SELECT SUM(Propuesta) AS TotalPropuesta FROM inversion')
+    const [rows] = await pool.query('SELECT SUM(Interes) AS TotalInteres FROM inversion')
     res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -65,9 +65,9 @@ export const getSumaPropuesta = async (req, res) => {
 
 export const putInversiones = async (req, res) => {
     const {idInversion} = req.params
-    const {Elemento, Estado, Inversion, Facturacion, Propuesta} = req.body
+    const {Descripcion, Estado, Inversion, Facturacion, Interes} = req.body
     try {
-    const [result] = await pool.query('UPDATE inversion SET Elemento = IFNULL(?, Elemento), Estado = IFNULL(?, Estado), Inversion = IFNULL(?, Inversion), Facturacion = IFNULL(?, Facturacion), Propuesta = IFNULL(?, Propuesta)  WHERE idInversion = ?', [Elemento, Estado, Inversion, Facturacion, Propuesta, idInversion])
+    const [result] = await pool.query('UPDATE inversion SET Descripcion = IFNULL(?, Descripcion), Estado = IFNULL(?, Estado), Inversion = IFNULL(?, Inversion), Facturacion = IFNULL(?, Facturacion), Interes = IFNULL(?, Interes)  WHERE idInversion = ?', [Descripcion, Estado, Inversion, Facturacion, Interes, idInversion])
     console.log(result)
     if(result === 0) return res.status(404).json({
         message:'Inversion no actualizada'

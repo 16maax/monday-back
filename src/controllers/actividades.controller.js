@@ -21,7 +21,7 @@ export const postActividades = async (req, res) => {
 
 export const getActividades = async (req, res) => {
     try {
-    const [rows] = await pool.query('SELECT * FROM actividades')
+    const [rows] = await pool.query('SELECT a.idActividad, a.Actividad, a.Estado, a.Prioridad, a.Fecha, u.Nom_Usuario FROM actividades a JOIN usuarios u ON a.idUsuario = u.idUsuario')
     res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -35,6 +35,20 @@ export const getActividad = async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM actividades WHERE idActividad = ?', [req.params.id])
     if (rows.length <= 0) return res.status(404).json({
         message: 'Actividad no encontrada'
+    })
+    res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message:'Algo salio mal'
+        })
+    }
+}
+
+export const getActividadUsuario = async (req, res) => {
+    try {
+    const [rows] = await pool.query('SELECT * FROM actividades WHERE idUsuario = ?', [req.params.id])
+    if (rows.length <= 0) return res.status(404).json({
+        message: 'Actividades no encontradas'
     })
     res.json(rows)
     } catch (error) {
