@@ -12,6 +12,13 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+const corsOptions = {
+    origin: 'https://podermujer.com.mx/', // Reemplaza con la URL de tu frontend
+  };
+  
+  // Aplicar middleware de CORS con opciones personalizadas
+  app.use(cors(corsOptions));
+
 app.use(indexRoutes)
 app.use(usuariosRoutes)
 app.use(cobrarRoutes)
