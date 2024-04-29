@@ -7,6 +7,7 @@ import pagarRoutes from './routes/pagar.routes.js'
 import actividadesRoutes from './routes/actividades.routes.js'
 import inversionesRoutes from './routes/inversion.routes.js'
 import loginRoutes from './routes/login.routes.js'
+import correoRoutes from './routes/fiscal.routes.js'
 
 const app = express()
 app.use(cors())
@@ -19,5 +20,6 @@ app.use(pagarRoutes)
 app.use(actividadesRoutes)
 app.use(inversionesRoutes)
 app.use(loginRoutes)
+app.use(correoRoutes)
 
 export default app;
