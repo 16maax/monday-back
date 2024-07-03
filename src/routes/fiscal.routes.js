@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import { sendEmail } from '../controllers/fiscal.controller.js';
 
 const router = Router()

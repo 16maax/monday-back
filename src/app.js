@@ -10,7 +10,10 @@ import loginRoutes from './routes/login.routes.js'
 import correoRoutes from './routes/fiscal.routes.js'
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',
+    credentials: true,  // Si tu solicitud requiere credenciales (cookies, encabezados personalizados, etc.)
+  }));
 app.use(express.json())
 
 app.use(indexRoutes)
